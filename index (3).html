@@ -1,0 +1,1147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>KGHITECH — 재생 토너 · 재생 잉크 전문</title>
+<meta name="description" content="KGHITECH는 재생 토너와 재생 잉크를 정밀하게 만드는 전문 기업입니다. 순정에 가까운 품질을, 더 합리적인 비용으로." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#ffffff;--bg-soft:#EEF4FC;--hero-1:#ffffff;--hero-2:#DCEBFB;
+    --navy:#0A2540;--navy-2:#07203A;--blue:#1A66E5;--blue-deep:#0B3FA6;--blue-bright:#3B8DFF;
+    --ink-blue:#0B2C7A;--text:#10243C;--muted:#5A6B80;--text-d:#EAF1FB;--muted-d:#8FA6C2;
+    --line:rgba(10,37,64,.12);--line-d:rgba(234,241,251,.16);--maxw:1240px;--ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Pretendard',system-ui,-apple-system,sans-serif;
+    font-size:16px;line-height:1.6;letter-spacing:-.012em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.lock{overflow:hidden;height:100svh}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:700;line-height:1.04;letter-spacing:-.035em}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.02em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--blue);display:inline-flex;align-items:center;gap:11px;font-weight:500}
+  .eyebrow::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--blue);transform:rotate(45deg);display:block}
+
+  /* ============ LOADER (kinetic) ============ */
+  #loader{position:fixed;inset:0;z-index:200;overflow:hidden;
+    background:radial-gradient(130% 120% at 30% 20%,#ffffff 0%,#EAF3FF 52%,#D2E4FB 100%);
+    transition:transform 1.05s var(--ease),opacity .5s ease .55s;will-change:transform}
+  #loader.done{transform:translateX(-100%);opacity:0;pointer-events:none}
+  .l-logo{position:absolute;top:30px;left:30px;height:34px;opacity:0;transform:translateY(-12px);
+    animation:lIn .8s var(--ease) .15s forwards}
+  @keyframes lIn{to{opacity:1;transform:none}}
+  .l-grid{position:absolute;inset:0;display:flex;justify-content:space-between;padding:0 8vw;pointer-events:none}
+  .l-grid i{width:1px;height:100%;background:linear-gradient(var(--blue),transparent);opacity:.10;transform:scaleY(0);transform-origin:top;
+    animation:lLine 1.4s var(--ease) forwards}
+  .l-grid i:nth-child(2){animation-delay:.12s}.l-grid i:nth-child(3){animation-delay:.24s}
+  .l-grid i:nth-child(4){animation-delay:.36s}.l-grid i:nth-child(5){animation-delay:.48s}
+  @keyframes lLine{to{transform:scaleY(1)}}
+  .l-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+  .l-word{display:flex;gap:.01em;line-height:.92}
+  .l-word .m{overflow:hidden;display:inline-block}
+  .l-word .m b{display:inline-block;font-weight:800;font-size:clamp(48px,12vw,150px);letter-spacing:-.04em;color:var(--navy);
+    transform:translateY(108%);animation:lRise .9s var(--ease) forwards}
+  .l-word .m b.bl{color:var(--blue)}
+  .l-word .m:nth-child(1) b{animation-delay:.30s}.l-word .m:nth-child(2) b{animation-delay:.36s}
+  .l-word .m:nth-child(3) b{animation-delay:.42s}.l-word .m:nth-child(4) b{animation-delay:.48s}
+  .l-word .m:nth-child(5) b{animation-delay:.54s}.l-word .m:nth-child(6) b{animation-delay:.60s}
+  .l-word .m:nth-child(7) b{animation-delay:.66s}.l-word .m:nth-child(8) b{animation-delay:.72s}
+  @keyframes lRise{to{transform:none}}
+  .l-rot{height:20px;overflow:hidden;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.22em;
+    color:var(--blue-deep);text-transform:uppercase;opacity:0;animation:lIn .6s ease .8s forwards}
+  .l-rot span{display:block;height:20px;line-height:20px}
+  .l-rot .inner{transition:transform .55s var(--ease)}
+  .l-count{position:absolute;right:30px;bottom:64px;font-family:'IBM Plex Mono',monospace;font-weight:600;
+    font-size:clamp(40px,9vw,86px);color:var(--navy);letter-spacing:-.04em;line-height:1;opacity:0;animation:lIn .6s ease .5s forwards}
+  .l-count i{font-size:.35em;color:var(--blue);vertical-align:super;margin-left:2px;font-style:normal}
+  .l-progress{position:absolute;left:30px;right:30px;bottom:42px;height:2px;background:rgba(26,102,229,.14);overflow:hidden}
+  .l-progress i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--blue-bright),var(--blue-deep))}
+  .l-sweep{position:absolute;left:30px;bottom:54px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);opacity:0;animation:lIn .6s ease .7s forwards}
+
+  /* page reveal after loader */
+  #app{opacity:0;transform:translateX(56px);transition:opacity .9s ease .15s,transform 1s var(--ease) .15s}
+  #app.in{opacity:1;transform:none}
+
+  /* ============ NAV ============ */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:90;
+    transition:background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease);border-bottom:1px solid transparent}
+  header.nav.scrolled{background:rgba(255,255,255,.82);backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line);box-shadow:0 8px 30px -22px rgba(10,37,64,.5)}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{display:flex;align-items:center;z-index:2}
+  .brand img{height:38px;width:auto;display:block;opacity:1}
+  /* 스크롤 전(투명 배경)에서도 로고가 보이도록 — 흰 배경으로 fallback */
+  header.nav:not(.scrolled) .brand img{filter:none}
+  nav.menu{display:flex;align-items:stretch;gap:2px}
+  .nav-item{position:relative}
+  .nav-item>a{display:flex;align-items:center;gap:8px;height:76px;padding:0 17px;font-size:13.5px;font-weight:600;
+    letter-spacing:.01em;color:var(--navy);position:relative;cursor:pointer;transition:color .25s var(--ease)}
+  .nav-item>a .idx{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);font-weight:500;transition:color .25s}
+  .nav-item>a::after{content:"";position:absolute;left:17px;right:17px;bottom:23px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--blue),var(--blue-bright));transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .nav-item:hover>a,.nav-item:focus-within>a,.nav-item.active>a{color:var(--blue-deep)}
+  .nav-item:hover>a .idx,.nav-item.active>a .idx{color:var(--blue)}
+  .nav-item:hover>a::after,.nav-item:focus-within>a::after,.nav-item.active>a::after{transform:scaleX(1)}
+  .panel{position:absolute;top:calc(76px - 8px);left:50%;transform:translate(-50%,10px);min-width:228px;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);
+    border-radius:16px;padding:10px;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .26s var(--ease),transform .26s var(--ease),visibility .26s;box-shadow:0 28px 60px -28px rgba(10,37,64,.4)}
+  .nav-item:hover .panel,.nav-item:focus-within .panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+  .panel a{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:11px 13px;border-radius:10px;
+    font-size:13.5px;font-weight:500;color:var(--navy);cursor:pointer;transition:background .2s,color .2s,padding .25s var(--ease)}
+  .panel a .sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)}
+  .panel a:hover{background:rgba(26,102,229,.08);color:var(--blue-deep);padding-left:18px}
+  .panel a:hover .sub{color:var(--blue)}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 19px;border-radius:40px;background:var(--blue);
+    color:#fff;font-weight:600;font-size:13.5px;white-space:nowrap;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s}
+  .nav-cta:hover{transform:translateY(-2px);background:var(--blue-deep);box-shadow:0 14px 30px -10px rgba(26,102,229,.55)}
+  .burger{display:none;background:#fff;border:1px solid var(--line);color:var(--navy);width:46px;height:46px;border-radius:12px;cursor:pointer}
+
+  /* ============ PAGES ============ */
+  .page{display:none}
+  .page.active{display:block;animation:pageIn .62s var(--ease) both}
+  .page.out{animation:pageOut .26s var(--ease) both}
+  @keyframes pageIn{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
+  @keyframes pageOut{to{opacity:0;transform:translateX(-36px)}}
+  .page:not(#page-home){padding:128px 0 70px;min-height:78vh}
+  .page-head{max-width:var(--maxw);margin:0 auto;padding:0 28px 8px}
+  .page-head h2{font-size:clamp(34px,5.6vw,72px);font-weight:800;color:var(--navy);margin-top:18px;letter-spacing:-.04em}
+  .page-head p{color:var(--muted);font-size:16.5px;max-width:54ch;margin:22px 0 0}
+
+  /* ============ HOME / HERO ============ */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(170deg,var(--hero-1),var(--hero-2))}
+  #ink-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;cursor:grab;touch-action:none}
+  #ink-canvas:active{cursor:grabbing}
+  .hero-inner{position:relative;z-index:3;width:100%;pointer-events:none}
+  .hero .eyebrow{margin-bottom:18px}
+  .hero h1{font-size:clamp(46px,8.4vw,116px);font-weight:800;letter-spacing:-.05em;color:var(--navy)}
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line span{display:block;transform:translateY(110%)}
+  .hero.lit h1 .line span{animation:rise 1s var(--ease) forwards}
+  .hero.lit h1 .line:nth-child(2) span{animation-delay:.09s}
+  .hero h1 em{font-style:normal;color:var(--blue)}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero-sub{max-width:480px;font-size:17px;color:var(--muted);margin-top:26px;opacity:0}
+  .hero.lit .hero-sub{animation:fade 1s var(--ease) .55s forwards}
+  .hero-sub strong{color:var(--navy);font-weight:700}
+  @keyframes fade{to{opacity:1}}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;pointer-events:auto;opacity:0}
+  .hero.lit .hero-cta{animation:fade 1s var(--ease) .8s forwards}
+  .btn{display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 24px;border-radius:40px;font-weight:600;font-size:15px;cursor:pointer;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s,border-color .3s}
+  .btn.solid{background:var(--blue);color:#fff}
+  .btn.solid:hover{transform:translateY(-2px);background:var(--blue-deep);box-shadow:0 16px 36px -12px rgba(26,102,229,.55)}
+  .btn.ghost{background:rgba(255,255,255,.6);color:var(--navy);border:1px solid var(--line)}
+  .btn.ghost:hover{transform:translateY(-2px);border-color:var(--blue);color:var(--blue-deep)}
+  .hero-band{position:absolute;left:0;right:0;bottom:0;z-index:3;border-top:1px solid rgba(10,37,64,.10);
+    background:rgba(255,255,255,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .hero-band .wrap{display:flex;gap:0;flex-wrap:wrap;padding-top:0;padding-bottom:0}
+  .hero-band .stat{
+    display:flex;align-items:center;gap:11px;padding:16px 28px 16px 0;
+    border-right:1px solid rgba(10,37,64,.10);margin-right:28px;
+  }
+  .hero-band .stat:last-child{border-right:none;margin-right:0}
+  .hero-band .stat-icon{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);
+    display:grid;place-items:center;flex-shrink:0;
+    box-shadow:0 4px 12px rgba(26,102,229,.28);
+  }
+  .hero-band .stat-icon svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .hero-band .stat-text{display:flex;flex-direction:column;gap:1px}
+  .hero-band .stat-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .hero-band .stat-value{font-size:14px;font-weight:700;color:var(--navy);letter-spacing:-.01em;line-height:1.2}
+  .scroll-cue{position:absolute;bottom:74px;left:50%;transform:translateX(-50%);z-index:3;font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.2em;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0}
+  .hero.lit .scroll-cue{animation:fade 1s 1.1s forwards}
+  .scroll-cue .bar{width:1px;height:30px;background:linear-gradient(var(--blue),transparent);animation:cue 2s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ============ VALUES / THESIS ============ */
+  .thesis{padding-top:6px}
+  .thesis h3{font-size:clamp(26px,4vw,44px);font-weight:800;max-width:18ch;color:var(--navy);margin-top:6px}
+  .thesis h3 mark{background:none;color:var(--blue)}
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:54px}
+  .value{border-top:2px solid var(--navy);padding-top:22px}
+  .value .vn{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--blue);font-weight:600}
+  .value h4{font-size:22px;margin:14px 0 10px;color:var(--navy);letter-spacing:-.02em;font-weight:700}
+  .value p{font-size:14.5px;color:#4a5a6c;margin:0}
+
+  /* ============ PRODUCTS ============ */
+  .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:var(--maxw);margin:48px auto 0;padding:0 28px}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:34px 32px;overflow:hidden;
+    transition:transform .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease)}
+  .card:hover{transform:translateY(-6px);border-color:rgba(26,102,229,.45);box-shadow:0 30px 60px -34px rgba(11,63,166,.5)}
+  .card .pn{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--blue);font-weight:600}
+  .card h3{font-size:26px;margin:16px 0 12px;color:var(--navy);letter-spacing:-.02em}
+  .card p{color:var(--muted);font-size:15px;margin:0 0 24px;max-width:42ch}
+  .card .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .card .tags span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy);border:1px solid var(--line);border-radius:30px;padding:6px 12px}
+  .card .drop{position:absolute;right:-34px;top:-34px;width:150px;height:150px;border-radius:60% 60% 58% 58%/66% 66% 54% 54%;
+    opacity:.1;filter:blur(1px);background:radial-gradient(circle at 36% 30%,var(--blue-bright),var(--blue-deep));transition:transform .6s var(--ease),opacity .6s}
+  .card:hover .drop{transform:scale(1.16) rotate(8deg);opacity:.2}
+
+  /* ============ PROCESS ============ */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;max-width:var(--maxw);margin:30px auto 0;padding:0 28px}
+  .step{padding:26px 22px 26px 0;border-top:2px solid var(--blue);position:relative}
+  .step .num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blue);font-weight:600}
+  .step h4{font-size:20px;margin:30px 0 9px;color:var(--navy);letter-spacing:-.02em;font-weight:700}
+  .step p{font-size:13.8px;color:#54616f;margin:0}
+  .step::before{content:"";position:absolute;top:-7px;left:0;width:11px;height:11px;border-radius:50%;background:var(--blue)}
+  .about-foot{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;max-width:var(--maxw);margin:70px auto 0;padding:40px 28px 0;border-top:1px solid var(--line)}
+  .about-foot .big{font-weight:800;font-size:clamp(24px,3.1vw,36px);max-width:18ch;letter-spacing:-.025em;color:var(--navy)}
+  .about-foot .meta{display:grid;gap:14px;align-content:start;min-width:240px}
+  .about-foot .meta div{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:10px;font-size:14px;color:var(--navy)}
+  .about-foot .meta span:first-child{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+
+  /* ============ CONTACT (bulk) ============ */
+  #page-contact{background:var(--navy);color:var(--text-d);border-radius:0}
+  #page-contact .page-head h2{color:#fff}
+  #page-contact .page-head h2 em{font-style:normal;color:var(--blue-bright)}
+  #page-contact .page-head p{color:var(--muted-d)}
+  #page-contact .eyebrow{color:var(--blue-bright)} #page-contact .eyebrow::before{background:var(--blue-bright)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:54px;align-items:start;max-width:var(--maxw);margin:46px auto 0;padding:0 28px}
+  .bulk-points{display:grid;gap:14px;margin:6px 0 30px}
+  .bulk-points li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--text-d)}
+  .bulk-points li::before{content:"";flex:0 0 auto;width:8px;height:8px;margin-top:8px;border-radius:2px;background:var(--blue-bright);transform:rotate(45deg)}
+  .contact-info{display:grid;gap:2px}
+  .contact-info a,.contact-info div{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-top:1px solid var(--line-d);font-size:15px}
+  .contact-info .lbl{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted-d)}
+  .form{background:rgba(255,255,255,.04);border:1px solid var(--line-d);border-radius:22px;padding:30px}
+  .form .row{display:grid;gap:7px;margin-bottom:16px}
+  .form label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted-d)}
+  .form input,.form select,.form textarea{background:rgba(7,32,58,.6);border:1px solid var(--line-d);border-radius:12px;color:var(--text-d);
+    font-family:inherit;font-size:15px;padding:13px 15px;width:100%;transition:border-color .25s}
+  .form input::placeholder,.form textarea::placeholder{color:#5d7691}
+  .form select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted-d) 50%),linear-gradient(135deg,var(--muted-d) 50%,transparent 50%);
+    background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+  .form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--blue-bright)}
+  .form textarea{resize:vertical;min-height:96px}
+  .form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form button{width:100%;height:52px;border:none;border-radius:40px;background:var(--blue);color:#fff;font-weight:700;font-size:16px;cursor:pointer;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s}
+  .form button:hover{transform:translateY(-2px);background:var(--blue-deep);box-shadow:0 16px 36px -12px rgba(59,141,255,.55)}
+  .form .note{font-size:11.5px;color:var(--muted-d);margin:14px 2px 0;text-align:center}
+
+  /* ============ FOOTER ============ */
+  footer.site{background:var(--navy-2);color:var(--text-d);padding:54px 0 44px}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
+  .foot-grid img{height:34px;filter:brightness(0) invert(1);opacity:.92}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap;font-size:13.5px;color:var(--muted-d)}
+  .foot-links a{cursor:pointer}.foot-links a:hover{color:#fff}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:42px;padding-top:24px;border-top:1px solid var(--line-d);
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted-d)}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:980px){.values,.steps,.prod-grid{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}}
+  @media (max-width:760px){
+    .wrap{padding:0 20px}
+    nav.menu{position:fixed;inset:76px 0 auto 0;flex-direction:column;gap:0;background:rgba(255,255,255,.98);backdrop-filter:blur(18px);
+      padding:10px 14px 22px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .5s var(--ease)}
+    nav.menu.open{transform:none}
+    .nav-item>a{height:auto;padding:16px 8px;justify-content:space-between;font-size:16px}
+    .nav-item>a::after{display:none}
+    .panel{position:static;transform:none;opacity:1;visibility:visible;pointer-events:auto;background:none;border:none;box-shadow:none;padding:0 8px 12px;min-width:0;display:none}
+    .nav-item.exp .panel{display:block}
+    .panel a{padding:10px 8px;font-size:14px}
+    .nav-cta{display:none}
+    .burger{display:grid;place-items:center;z-index:2}
+    .values,.steps,.prod-grid{grid-template-columns:1fr}
+    .step{border-top:1px solid var(--line)}.step::before{display:none}
+    .about-foot{flex-direction:column}
+    .l-count{bottom:78px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.2s!important}
+    .hero h1 .line span,.l-word .m b{transform:none}.hero-sub,.hero-cta,.scroll-cue{opacity:1}
+  }
+  /* ============================================================
+     HOME HUB — VisionOS / Stripe / Linear idle base
+     ============================================================ */
+  :root{
+    --glass:rgba(255,255,255,.66);--glass-2:rgba(255,255,255,.48);
+    --glass-line:rgba(255,255,255,.72);
+    --glass-sh:0 30px 60px -34px rgba(11,42,122,.4),0 4px 16px -8px rgba(10,37,64,.16);
+  }
+  #page-home{position:relative;overflow:hidden}
+
+  /* ----- ambient idle mesh (always-on base) ----- */
+  .home-amb{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .home-amb b{position:absolute;display:block;border-radius:50%;filter:blur(72px);will-change:transform}
+  .home-amb .b1{width:52vw;height:52vw;max-width:780px;max-height:780px;left:-12vw;top:-10vw;opacity:.62;
+    background:radial-gradient(circle,#3B8DFF 0%,rgba(59,141,255,0) 66%);animation:amb1 28s var(--ease) infinite alternate}
+  .home-amb .b2{width:46vw;height:46vw;max-width:700px;max-height:700px;right:-14vw;top:1vw;opacity:.56;
+    background:radial-gradient(circle,#7CC4FF 0%,rgba(124,196,255,0) 66%);animation:amb2 34s var(--ease) infinite alternate}
+  .home-amb .b3{width:42vw;height:42vw;max-width:640px;max-height:640px;left:16vw;top:48%;opacity:.48;
+    background:radial-gradient(circle,#6E8BFF 0%,rgba(110,139,255,0) 64%);animation:amb3 40s var(--ease) infinite alternate}
+  .home-amb .b4{width:38vw;height:38vw;max-width:580px;max-height:580px;right:4vw;bottom:-8vw;opacity:.5;
+    background:radial-gradient(circle,#A9D6FF 0%,rgba(169,214,255,0) 64%);animation:amb4 32s var(--ease) infinite alternate}
+  .home-amb::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(120% 78% at 50% 0%,rgba(255,255,255,.5),rgba(255,255,255,0) 56%),
+    linear-gradient(180deg,rgba(255,255,255,.06),rgba(235,243,252,.4))}
+  @keyframes amb1{to{transform:translate(8vw,6vh) scale(1.12)}}
+  @keyframes amb2{to{transform:translate(-6vw,8vh) scale(1.08)}}
+  @keyframes amb3{to{transform:translate(7vw,-7vh) scale(1.14)}}
+  @keyframes amb4{to{transform:translate(-7vw,-5vh) scale(1.1)}}
+
+  /* hero gradient becomes translucent so the idle mesh reads through */
+  #page-home .hero{background:linear-gradient(170deg,rgba(255,255,255,.42),rgba(220,235,251,.26));z-index:1}
+
+  /* ----- glass utility (VisionOS material) ----- */
+  .glass{background:linear-gradient(180deg,var(--glass),var(--glass-2));
+    -webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);
+    border:1px solid var(--glass-line);border-radius:24px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),var(--glass-sh)}
+
+  /* ----- section scaffold ----- */
+  .hub{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:64px 28px 0}
+  .hub--divider{margin-top:48px;border-top:1px solid var(--line);padding-top:52px}
+  .hub-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+  .hub-head h2{font-size:clamp(24px,3.4vw,38px);font-weight:800;color:var(--navy);letter-spacing:-.035em;margin:10px 0 0}
+  .hub-head p{color:var(--muted);font-size:14.5px;margin:9px 0 0;max-width:50ch}
+  .hub-head .more{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--blue);font-weight:600;cursor:pointer;white-space:nowrap}
+  .hub-head .more:hover{color:var(--blue-deep)}
+
+  /* ----- command / help bar (signature) ----- */
+  .cmd{position:relative;z-index:6;max-width:920px;margin:-58px auto 0;padding:30px 30px 26px;animation:idleFloat 7s ease-in-out infinite}
+  .cmd::before{content:"";position:absolute;left:26px;right:26px;top:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent)}
+  .cmd .lead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .cmd .lead .dot{width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(26,102,229,.18);animation:idlePulse 2.6s ease-in-out infinite}
+  .cmd h3{font-size:clamp(20px,2.6vw,27px);font-weight:800;color:var(--navy);letter-spacing:-.03em}
+  .cmd .desc{color:var(--muted);font-size:14px;margin:0 0 16px 22px}
+  .cmd .field{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:7px 7px 7px 16px;
+    transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+  .cmd .field:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(26,102,229,.14)}
+  .cmd .field>svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:1.8;flex:0 0 auto}
+  .cmd .field input{flex:1;border:none;outline:none;font-family:inherit;font-size:15.5px;color:var(--text);background:none;min-width:0}
+  .cmd .field button{flex:0 0 auto;height:42px;padding:0 22px;border:none;border-radius:11px;background:var(--blue);color:#fff;font-weight:700;font-size:14.5px;cursor:pointer;transition:background .25s,transform .25s var(--ease)}
+  .cmd .field button:hover{background:var(--blue-deep);transform:translateY(-1px)}
+  .cmd .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+  .cmd .chips b{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);font-weight:500;margin-right:2px}
+  .cmd .chip{font-size:13px;color:var(--navy);background:rgba(26,102,229,.07);border:1px solid rgba(26,102,229,.14);border-radius:30px;padding:7px 13px;cursor:pointer;transition:background .2s var(--ease),color .2s,transform .2s,border-color .2s}
+  .cmd .chip:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-1px)}
+
+  /* ----- product category tiles ----- */
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .cat-tile{display:flex;flex-direction:column;gap:13px;padding:22px;cursor:pointer;min-height:172px;
+    transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+  .cat-tile:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 44px 74px -36px rgba(11,42,122,.5)}
+  .cat-tile .ic{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;
+    background:linear-gradient(140deg,var(--blue),var(--blue-deep));box-shadow:0 10px 22px -8px rgba(26,102,229,.55)}
+  .cat-tile .ic svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.7}
+  .cat-tile h4{font-size:17px;color:var(--navy);font-weight:700;letter-spacing:-.02em;margin:0}
+  .cat-tile p{font-size:12.5px;color:var(--muted);margin:-4px 0 0;line-height:1.45}
+  .cat-tile .go{margin-top:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue);font-weight:600;opacity:0;transform:translateX(-4px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+  .cat-tile:hover .go{opacity:1;transform:none}
+
+  /* ----- solution launchpad cards ----- */
+  .sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sol-card{display:flex;gap:15px;align-items:flex-start;padding:22px;cursor:pointer;
+    transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+  .sol-card:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 44px 74px -36px rgba(11,42,122,.5)}
+  .sol-card .ic{flex:0 0 auto;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:rgba(26,102,229,.1);border:1px solid rgba(26,102,229,.16)}
+  .sol-card .ic svg{width:22px;height:22px;stroke:var(--blue-deep);fill:none;stroke-width:1.7}
+  .sol-card .tx{flex:1;min-width:0}
+  .sol-card h4{font-size:16px;color:var(--navy);font-weight:700;letter-spacing:-.02em;margin:1px 0 5px;display:flex;align-items:center;gap:8px}
+  .sol-card h4 .soon{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--blue);background:rgba(26,102,229,.1);border-radius:20px;padding:2px 7px;font-weight:600}
+  .sol-card p{font-size:12.8px;color:var(--muted);margin:0;line-height:1.5}
+  .sol-card .arr{flex:0 0 auto;color:var(--muted);align-self:center;transition:transform .35s var(--ease),color .35s}
+  .sol-card .arr svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .sol-card:hover .arr{color:var(--blue);transform:translate(3px,-3px)}
+
+  /* ----- trust / advantage (ink-tank) ----- */
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .trust-card{padding:24px 22px}
+  .trust-card .n{font-family:'IBM Plex Mono',monospace;font-size:clamp(28px,3.6vw,40px);font-weight:700;color:var(--blue-deep);letter-spacing:-.03em;line-height:1}
+  .trust-card .n em{font-style:normal;font-size:.46em;color:var(--blue);margin-left:1px}
+  .trust-card h4{font-size:15px;color:var(--navy);font-weight:700;margin:13px 0 4px}
+  .trust-card p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.45}
+
+  /* ----- quick menu (fixed, home only) ----- */
+  .qmenu{position:fixed;right:22px;bottom:22px;z-index:80;display:flex;flex-direction:column;gap:10px}
+  .qmenu button{position:relative;width:56px;height:56px;border-radius:18px;border:1px solid var(--glass-line);cursor:pointer;display:grid;place-items:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.6));-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 18px 36px -16px rgba(11,42,122,.45);transition:transform .3s var(--ease),box-shadow .3s}
+  .qmenu button:hover{transform:translateY(-3px) scale(1.04)}
+  .qmenu button svg{width:23px;height:23px;stroke:var(--blue-deep);fill:none;stroke-width:1.7}
+  .qmenu button.primary{background:linear-gradient(140deg,var(--blue),var(--blue-deep));border-color:transparent}
+  .qmenu button.primary svg{stroke:#fff}
+  .qmenu .lbl{position:absolute;right:66px;top:50%;transform:translateY(-50%) translateX(4px);white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--navy);
+    background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:9px;padding:6px 10px;opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .qmenu button:hover .lbl{opacity:1;transform:translateY(-50%)}
+
+  /* ----- toast ----- */
+  .toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);z-index:120;
+    background:var(--navy);color:#fff;font-size:14px;padding:13px 20px;border-radius:13px;
+    box-shadow:0 20px 50px -20px rgba(10,37,64,.6);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease);max-width:90vw}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @keyframes idlePulse{0%,100%{box-shadow:0 0 0 4px rgba(26,102,229,.18)}50%{box-shadow:0 0 0 9px rgba(26,102,229,.05)}}
+  @keyframes idleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+  @media (max-width:980px){
+    .cat-grid,.trust-grid{grid-template-columns:repeat(2,1fr)}
+    .sol-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:680px){
+    .cmd{margin-top:-34px;padding:24px 18px}
+    .cmd .desc{margin-left:0}
+    .cat-grid,.trust-grid,.sol-grid{grid-template-columns:1fr}
+    .cmd .field button{padding:0 15px}
+    .qmenu{right:14px;bottom:14px}
+    .qmenu button{width:50px;height:50px}
+    .qmenu .lbl{display:none}
+  }
+</style>
+</head>
+<body class="lock">
+
+<!-- ===================== LOADER ===================== -->
+<div id="loader">
+  <img class="l-logo" src="kghitech-logo.png" alt="KGHITECH" />
+  <div class="l-grid"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="l-stage">
+    <div class="l-word" aria-label="KGHITECH">
+      <span class="m"><b>K</b></span><span class="m"><b>G</b></span><span class="m"><b>H</b></span>
+      <span class="m"><b class="bl">I</b></span><span class="m"><b>T</b></span><span class="m"><b>E</b></span>
+      <span class="m"><b>C</b></span><span class="m"><b>H</b></span>
+    </div>
+    <div class="l-rot"><div class="inner" id="lrot"><span>RECYCLED TONER</span><span>RECYCLED INK</span><span>다시, 선명하게</span></div></div>
+  </div>
+  <div class="l-sweep" id="lsweep">LOADING EXPERIENCE</div>
+  <div class="l-count"><span id="lnum">0</span><i>%</i></div>
+  <div class="l-progress"><i id="lbar"></i></div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a class="brand" data-nav="home" aria-label="KGHITECH 홈"><img src="kghitech-logo.png" alt="KGHITECH" /></a>
+    <nav class="menu" id="menu" aria-label="주 메뉴">
+      <div class="nav-item" data-page-nav="home">
+        <a data-nav="home"><span class="idx">01</span>HOME</a>
+        <div class="panel">
+          <a data-nav="home">개요<span class="sub">Overview</span></a>
+          <a data-nav="about">사업 소개<span class="sub">What we do</span></a>
+          <a data-nav="contact">대량 견적<span class="sub">Bulk quote</span></a>
+        </div>
+      </div>
+      <div class="nav-item" data-page-nav="product">
+        <a data-nav="product"><span class="idx">02</span>PRODUCT</a>
+        <div class="panel">
+          <a data-nav="product" data-anchor="card-toner">재생 토너<span class="sub">Toner</span></a>
+          <a data-nav="product" data-anchor="card-ink">재생 잉크<span class="sub">Ink</span></a>
+          <a data-nav="product" data-anchor="card-refill">리필 · 부품<span class="sub">Refill</span></a>
+          <a data-nav="about">품질 공정<span class="sub">Quality</span></a>
+        </div>
+      </div>
+      <div class="nav-item" data-page-nav="about">
+        <a data-nav="about"><span class="idx">03</span>ABOUT US</a>
+        <div class="panel">
+          <a data-nav="about">회사 소개<span class="sub">Company</span></a>
+          <a data-nav="about" data-anchor="process">제조 공정<span class="sub">Process</span></a>
+          <a data-nav="about" data-anchor="eco">친환경 가치<span class="sub">Eco</span></a>
+          <a data-nav="contact">오시는 길<span class="sub">Location</span></a>
+        </div>
+      </div>
+      <div class="nav-item" data-page-nav="contact">
+        <a data-nav="contact"><span class="idx">04</span>CONTACT US</a>
+        <div class="panel">
+          <a data-nav="contact">대량 구매 견적<span class="sub">Bulk quote</span></a>
+          <a data-nav="contact" data-anchor="contact-info">이메일 · 전화<span class="sub">Email · Tel</span></a>
+        </div>
+      </div>
+    </nav>
+    <a class="nav-cta" data-nav="contact">대량 견적 문의 →</a>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false">
+      <svg width="20" height="14" viewBox="0 0 20 14"><path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== APP / PAGES ===================== -->
+<main id="app">
+
+  <!-- HOME (simplified) -->
+  <section class="page active" id="page-home" data-page="home">
+    <!-- ambient idle base (always-on drifting mesh) -->
+    <div class="home-amb" aria-hidden="true"><b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b></div>
+
+    <div class="hero" id="hero">
+      <canvas id="ink-canvas"></canvas>
+      <div class="wrap hero-inner">
+        <span class="eyebrow">RECYCLED TONER · RECYCLED INK</span>
+        <h1>
+          <span class="line"><span>재생 잉크의</span></span>
+          <span class="line"><span>새로운 <em>기준</em></span></span>
+        </h1>
+        <p class="hero-sub"><strong>KGHITECH</strong>는 재생 토너와 재생 잉크를 정밀하게 만드는 전문 기업입니다.<br>순정에 가까운 품질을, 더 합리적인 비용으로.</p>
+        <div class="hero-cta">
+          <a class="btn solid" data-nav="contact">대량 견적 문의 →</a>
+          <a class="btn ghost" data-nav="product">제품 보기</a>
+        </div>
+      </div>
+      <div class="scroll-cue">SCROLL<span class="bar"></span></div>
+    </div>
+
+    <!-- COMMAND / HELP BAR (signature · symptom → solution) -->
+    <section class="cmd glass" id="help">
+      <div class="lead"><span class="dot"></span><h3>어떤 문제가 있으신가요?</h3></div>
+      <p class="desc">증상이나 프린터 모델명을 입력하면, 맞는 재생 제품과 해결 방법을 안내합니다.</p>
+      <div class="field">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <input id="symptomInput" type="text" placeholder="예: 출력에 줄이 생겨요 · HP M404 호환 토너 · 색이 흐려요" aria-label="증상 또는 모델명 검색" />
+        <button id="symptomGo">해결책 찾기</button>
+      </div>
+      <div class="chips">
+        <b>자주 찾는 증상</b>
+        <span class="chip">출력에 줄·번짐</span>
+        <span class="chip">색이 흐리거나 이상</span>
+        <span class="chip">카트리지 인식 안 됨</span>
+        <span class="chip">잔량 표시 오류</span>
+        <span class="chip">내 모델 호환 찾기</span>
+      </div>
+    </section>
+
+    <!-- PRODUCT CATEGORY TILES (ink-tank flavor) -->
+    <section class="hub">
+      <div class="hub-head">
+        <div>
+          <span class="eyebrow">PRODUCT</span>
+          <h2>제품을 선택하세요</h2>
+          <p>사용 환경에 맞는 재생 솔루션으로 바로 이동합니다.</p>
+        </div>
+        <a class="more" data-nav="product">전체 제품 보기 →</a>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-tile glass" data-nav="product" data-anchor="card-toner">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M7 8V6.5A1.5 1.5 0 0 1 8.5 5h4" stroke-linecap="round"/><path d="M16 12.5h2" stroke-linecap="round"/></svg></div>
+          <h4>재생 토너</h4>
+          <p>레이저 프린터·복합기용. 폭넓은 호환 기종 지원.</p>
+          <span class="go">바로가기 →</span>
+        </div>
+        <div class="cat-tile glass" data-nav="product" data-anchor="card-ink">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3s-6 6.6-6 10.5a6 6 0 0 0 12 0C18 9.6 12 3 12 3z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5" stroke-linecap="round"/></svg></div>
+          <h4>재생 잉크</h4>
+          <p>잉크젯용. 번짐 없이 선명한 발색 유지.</p>
+          <span class="go">바로가기 →</span>
+        </div>
+        <div class="cat-tile glass" data-nav="product" data-anchor="card-refill">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="9" width="12" height="11" rx="2"/><path d="M10 9V6a2 2 0 0 1 4 0v3" /><path d="M9 14h6" stroke-linecap="round"/></svg></div>
+          <h4>리필 · 대용량</h4>
+          <p>페이지 단가를 한 번 더 낮추는 대용량 솔루션.</p>
+          <span class="go">바로가기 →</span>
+        </div>
+        <div class="cat-tile glass" data-nav="product">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 4.5v2M12 17.5v2M4.5 12h2M17.5 12h2M6.7 6.7l1.4 1.4M15.9 15.9l1.4 1.4M17.3 6.7l-1.4 1.4M8.1 15.9l-1.4 1.4" stroke-linecap="round"/></svg></div>
+          <h4>호환 부품</h4>
+          <p>드럼·칩·롤러 등 소모성 부품 맞춤 공급.</p>
+          <span class="go">바로가기 →</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELF-HELP LAUNCHPAD (samsung-style · slots for future solutions) -->
+    <section class="hub">
+      <div class="hub-head">
+        <div>
+          <span class="eyebrow">SELF-HELP</span>
+          <h2>스스로 해결하기</h2>
+          <p>증상을 진단하고, 호환 정보와 조치 방법을 확인하세요.</p>
+        </div>
+      </div>
+      <div class="sol-grid">
+        <div class="sol-card glass" data-sol="diagnose">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 4H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"/><rect x="9" y="3" width="6" height="3.2" rx="1"/><path d="M8.5 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tx"><h4>자가진단 <span class="soon">준비 중</span></h4><p>몇 가지 질문으로 출력 문제의 원인을 좁혀드립니다.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="sol-card glass" data-sol="compat">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 7H7a4 4 0 0 0 0 8h2" stroke-linecap="round"/><path d="M15 7h2a4 4 0 0 1 0 8h-2" stroke-linecap="round"/><path d="M8 11h8" stroke-linecap="round"/></svg></div>
+          <div class="tx"><h4>호환성 조회 <span class="soon">준비 중</span></h4><p>내 프린터 모델에 맞는 재생 제품을 확인합니다.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="sol-card glass" data-sol="trouble">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M14.5 6.5a3.5 3.5 0 0 0-4.9 4.4L4 16.5 7.5 20l5.6-5.6a3.5 3.5 0 0 0 4.4-4.9l-2.2 2.2-2.1-.5-.5-2.1z" stroke-linejoin="round"/></svg></div>
+          <div class="tx"><h4>출력 문제 해결 <span class="soon">준비 중</span></h4><p>줄·번짐·색 이상 등 증상별 조치 가이드.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="sol-card glass" data-sol="error">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4l8.5 14.5H3.5L12 4z" stroke-linejoin="round"/><path d="M12 10v4M12 16.5v.2" stroke-linecap="round"/></svg></div>
+          <div class="tx"><h4>에러코드 사전 <span class="soon">준비 중</span></h4><p>프린터 코드로 원인과 조치를 바로 확인합니다.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="sol-card glass" data-sol="care">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5v5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-5L12 3z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tx"><h4>프린터 관리 <span class="soon">준비 중</span></h4><p>노화·수명을 늦추는 관리 팁과 점검 주기.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="sol-card glass" data-sol="quote">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke-linecap="round"/></svg></div>
+          <div class="tx"><h4>대량 견적</h4><p>B2B 정기 공급·대량 구매 견적을 문의합니다.</p></div>
+          <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY KGHITECH · advantage stats (ink-tank flavor) -->
+    <section class="hub hub--divider">
+      <div class="hub-head">
+        <div>
+          <span class="eyebrow">WHY KGHITECH</span>
+          <h2>믿고 쓰는 이유</h2>
+          <p>충전부터 검사까지 제조 전 과정을 직접 관리합니다.</p>
+        </div>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card glass"><div class="n">100<em>%</em></div><h4>전수 검사 후 출하</h4><p>모든 제품을 하나하나 검사해 합격분만 출고합니다.</p></div>
+        <div class="trust-card glass"><div class="n">순정<em>급</em></div><h4>출력 품질 보장</h4><p>정품 규격에 맞춘 충전으로 선명한 발색을 유지합니다.</p></div>
+        <div class="trust-card glass"><div class="n">2<em>단계</em></div><h4>누액 · 발색 테스트</h4><p>헤드 점검과 출력 테스트를 거쳐 안정성을 확인합니다.</p></div>
+        <div class="trust-card glass"><div class="n">전국<em>망</em></div><h4>정기 · 대량 공급</h4><p>재고 걱정 없이 운영하도록 전국에 안정적으로 배송합니다.</p></div>
+      </div>
+    </section>
+
+    <div style="height:96px"></div>
+
+    <!-- QUICK MENU (fixed · home only) -->
+    <div class="qmenu" aria-label="빠른 메뉴">
+      <button class="primary" data-q="diagnose" aria-label="자가진단 시작"><svg viewBox="0 0 24 24"><path d="M3 12h3l2.5 7 4-14 2.5 7H21" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">자가진단 시작</span></button>
+      <button data-q="quote" aria-label="대량 견적 문의"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4" stroke-linecap="round"/></svg><span class="lbl">대량 견적 문의</span></button>
+      <button data-q="contact" aria-label="상담 문의"><svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 20 11.5z" stroke-linejoin="round"/></svg><span class="lbl">상담 · 문의</span></button>
+      <button data-q="top" aria-label="맨 위로"><svg viewBox="0 0 24 24"><path d="M12 19V6M6 11l6-6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">맨 위로</span></button>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="page" id="page-product" data-page="product">
+    <div class="page-head">
+      <span class="eyebrow reveal">PRODUCT</span>
+      <h2 class="reveal">네 가지 재생 솔루션</h2>
+      <p class="reveal">레이저 프린터부터 잉크젯, 복합기까지. 사용 환경에 맞춰 가장 효율적인 형태로 공급합니다.</p>
+    </div>
+    <div class="prod-grid">
+      <article class="card reveal" id="card-toner"><div class="drop"></div><span class="pn">PRODUCT / 01</span><h3>재생 토너 카트리지</h3><p>토너를 재충전하고 마모 부품을 교체한 레이저 프린터용 카트리지. 폭넓은 호환 기종을 지원합니다.</p><div class="tags"><span>레이저</span><span>모노 · 컬러</span><span>전수 검사</span></div></article>
+      <article class="card reveal" id="card-ink"><div class="drop"></div><span class="pn">PRODUCT / 02</span><h3>재생 잉크 카트리지</h3><p>헤드 상태를 점검하고 정품 규격 잉크를 충전한 잉크젯용 카트리지. 번짐 없이 선명한 발색을 유지합니다.</p><div class="tags"><span>잉크젯</span><span>선명한 발색</span><span>누액 테스트</span></div></article>
+      <article class="card reveal" id="card-refill"><div class="drop"></div><span class="pn">PRODUCT / 03</span><h3>리필 토너 · 잉크</h3><p>대용량 리필 솔루션으로 페이지 단가를 한 번 더 낮춥니다. 정기 공급 계약으로 더 효율적으로.</p><div class="tags"><span>대용량</span><span>정기 공급</span><span>저단가</span></div></article>
+      <article class="card reveal"><div class="drop"></div><span class="pn">PRODUCT / 04</span><h3>호환 부품 · 공급</h3><p>드럼, 칩, 롤러 등 소모성 부품과 사무 환경에 맞춘 맞춤형 공급. 재고 걱정 없이 운영하세요.</p><div class="tags"><span>드럼 · 칩</span><span>맞춤 공급</span><span>B2B</span></div></article>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="page" id="page-about" data-page="about">
+    <div class="page-head">
+      <span class="eyebrow reveal">ABOUT US</span>
+      <h2 class="reveal">우리는 재생 토너 · 재생 잉크 전문 기업입니다.</h2>
+      <p class="reveal">순정에 가까운 출력 품질, 더 가벼운 환경 부담, 더 합리적인 비용. KGHITECH는 충전부터 검사까지 제조 전 과정을 직접 관리해, 믿고 쓸 수 있는 재생 제품을 공급합니다.</p>
+    </div>
+    <div class="wrap thesis" id="eco" style="margin-top:42px">
+      <div class="values">
+        <div class="value reveal"><span class="vn">/ 01</span><h4>순정급 품질</h4><p>전수 출력 테스트와 누액 검사를 거쳐, 첫 장부터 마지막 장까지 균일한 농도를 유지합니다.</p></div>
+        <div class="value reveal"><span class="vn">/ 02</span><h4>더 적은 자원 낭비</h4><p>재생 제품을 사용할수록 새 자원의 소비와 폐기물 발생을 함께 줄일 수 있습니다.</p></div>
+        <div class="value reveal"><span class="vn">/ 03</span><h4>합리적인 비용</h4><p>같은 인쇄량을 더 낮은 페이지 단가로. 대량·정기 공급일수록 절감 효과가 커집니다.</p></div>
+      </div>
+    </div>
+    <div class="wrap" id="process" style="margin-top:70px"><span class="eyebrow reveal">제조 공정</span>
+      <h3 class="reveal" style="font-size:clamp(24px,3.4vw,40px);font-weight:800;color:var(--navy);margin-top:14px;max-width:20ch">새 것의 성능으로 되살리는, 네 단계의 정밀 공정.</h3></div>
+    <div class="steps">
+      <div class="step reveal"><span class="num">STEP 01</span><h4>분해 · 세척</h4><p>완전히 분해해 잔여물을 제거하고 정밀하게 세척합니다.</p></div>
+      <div class="step reveal"><span class="num">STEP 02</span><h4>충전 · 부품 교체</h4><p>규격 잉크·토너를 채우고 마모된 부품을 새 것으로 교체합니다.</p></div>
+      <div class="step reveal"><span class="num">STEP 03</span><h4>정밀 검사</h4><p>출력·누액·농도를 전수 테스트해 품질을 확인합니다.</p></div>
+      <div class="step reveal"><span class="num">STEP 04</span><h4>포장 · 출하</h4><p>합격한 제품만 포장해 고객에게 전달합니다.</p></div>
+    </div>
+    <div class="about-foot reveal">
+      <p class="big">한 방울의 품질이, 더 깨끗한 사무실과 더 가벼운 지구로 이어진다고 믿습니다.</p>
+      <div class="meta">
+        <div><span>분야</span><span>재생 토너 · 잉크</span></div>
+        <div><span>대상</span><span>기업 · 관공서</span></div>
+        <div><span>공급 방식</span><span>단건 · 정기 · 계약</span></div>
+        <div><span>지역</span><span>대한민국 전역</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (bulk purchase) -->
+  <section class="page" id="page-contact" data-page="contact">
+    <div class="page-head">
+      <span class="eyebrow reveal">CONTACT US · BULK</span>
+      <h2 class="reveal">대량 구매, <em>견적</em>부터.</h2>
+      <p class="reveal">기업·관공서 등 대량으로 도입하시는 고객을 위한 견적 창구입니다. 품목과 예상 수량(또는 월 사용량)을 남겨주시면, 맞춤 단가와 예상 절감액을 보내드립니다.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <ul class="bulk-points reveal">
+          <li>수량 구간별 <strong>대량 단가</strong>와 정기 공급 할인 안내</li>
+          <li>혼합 품목(토너·잉크·부품) <strong>통합 견적</strong> 가능</li>
+          <li>월 사용량 기반 <strong>예상 절감액</strong> 산출</li>
+          <li>세금계산서 · 정기 배송 등 <strong>B2B 조건</strong> 협의</li>
+        </ul>
+        <div class="contact-info reveal" id="contact-info">
+          <a href="mailto:sales@kghitech.example"><span class="lbl">BULK SALES</span><span>sales@kghitech.example</span></a>
+          <a href="tel:+820000000000"><span class="lbl">TEL</span><span>02-000-0000</span></a>
+          <div><span class="lbl">HOURS</span><span>평일 09:00 – 18:00</span></div>
+          <div><span class="lbl">ADDRESS</span><span>대한민국 · 본사</span></div>
+        </div>
+      </div>
+      <form class="form reveal" id="quoteForm" novalidate>
+        <div class="two">
+          <div class="row"><label for="company">회사 · 기관명</label><input id="company" placeholder="(주)케이지하이테크" /></div>
+          <div class="row"><label for="name">담당자</label><input id="name" placeholder="홍길동" /></div>
+        </div>
+        <div class="two">
+          <div class="row"><label for="email">이메일</label><input id="email" type="email" placeholder="you@company.com" /></div>
+          <div class="row"><label for="tel">연락처</label><input id="tel" placeholder="010-0000-0000" /></div>
+        </div>
+        <div class="two">
+          <div class="row"><label for="item">품목</label><select id="item"><option>재생 토너</option><option>재생 잉크</option><option>토너 + 잉크</option><option>리필 · 부품 포함</option></select></div>
+          <div class="row"><label for="qty">예상 수량 / 월 사용량</label><input id="qty" placeholder="예) 월 500개 · 또는 3,000매" /></div>
+        </div>
+        <div class="row"><label for="msg">요청 사항</label><textarea id="msg" placeholder="사용 기종, 납기, 정기 공급 여부 등을 적어주세요."></textarea></div>
+        <button type="submit">대량 견적 요청 보내기</button>
+        <p class="note" id="formNote">* 데모 양식입니다. 실제 발송을 원하시면 이메일/백엔드 연동을 추가해 드릴 수 있어요.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <img src="kghitech-logo.png" alt="KGHITECH" />
+      <nav class="foot-links" aria-label="footer"><a data-nav="home">HOME</a><a data-nav="product">PRODUCT</a><a data-nav="about">ABOUT US</a><a data-nav="contact">CONTACT US</a></nav>
+    </div>
+    <div class="foot-bottom"><span>© 2026 KGHITECH — RECYCLED TONER &amp; INK</span><span>재생의 새로운 기준</span></div>
+  </div>
+</footer>
+
+<!-- ===================== HERO INK DROPLET — Three.js 3D glass/liquid sphere ===================== -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
+
+/* =====================================================================
+   HERO INK DROPLET — Three.js physical glass/liquid sphere
+   Big · vivid blue · genuinely 3D · gooey surface tension · gravity.
+   Custom blue studio environment for cohesive premium reflections.
+   ===================================================================== */
+const canvas = document.getElementById('ink-canvas');
+if (canvas) {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+try {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true, powerPreference:'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+  camera.position.set(0, 0, 7.2);
+
+  /* ── Custom equirectangular "blue studio" environment ──
+     Painted gradient + soft hotspots → glossy reflections that read as
+     a lit liquid bead and stay on-brand with the light hero. */
+  function buildEnvTexture(){
+    const c = document.createElement('canvas'); c.width = 1024; c.height = 512;
+    const x = c.getContext('2d');
+    const g = x.createLinearGradient(0,0,0,512);
+    g.addColorStop(0.00,'#F4F9FF');   // sky / key
+    g.addColorStop(0.30,'#C8DEFF');
+    g.addColorStop(0.52,'#5E96F2');
+    g.addColorStop(0.74,'#1B50B6');
+    g.addColorStop(1.00,'#081F5E');   // deep ground
+    x.fillStyle = g; x.fillRect(0,0,1024,512);
+    // bright primary catch-light (upper-left)
+    let h = x.createRadialGradient(300,150,10, 300,150,260);
+    h.addColorStop(0,'rgba(255,255,255,1)'); h.addColorStop(1,'rgba(255,255,255,0)');
+    x.fillStyle = h; x.fillRect(0,0,1024,512);
+    // soft cyan secondary (upper-right)
+    let h2 = x.createRadialGradient(760,120,8, 760,120,200);
+    h2.addColorStop(0,'rgba(180,230,255,0.9)'); h2.addColorStop(1,'rgba(180,230,255,0)');
+    x.fillStyle = h2; x.fillRect(0,0,1024,512);
+    // bright floor strip reflection
+    let f = x.createLinearGradient(0,430,0,512);
+    f.addColorStop(0,'rgba(120,170,255,0)'); f.addColorStop(1,'rgba(150,195,255,0.55)');
+    x.fillStyle = f; x.fillRect(0,430,1024,82);
+    const tex = new THREE.CanvasTexture(c);
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envRT = pmrem.fromEquirectangular(buildEnvTexture());
+  scene.environment = envRT.texture;
+
+  /* ── Lights (sculpt + rim) ── */
+  const key  = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(-4, 6, 6); scene.add(key);
+  const rim  = new THREE.DirectionalLight(0x3b8dff, 2.4); rim.position.set(5, -3, -2); scene.add(rim);
+  const fill = new THREE.PointLight(0x9ec8ff, 1.0, 40);   fill.position.set(4, 4, 5);  scene.add(fill);
+  scene.add(new THREE.AmbientLight(0x2a3a66, 0.5));
+
+  /* ── Geometry: smooth indexed icosphere → soft teardrop blob ──
+     mergeVertices() collapses the non-indexed polyhedron to shared
+     vertices: fewer points, and computeVertexNormals() then averages
+     across faces → a seamless gooey surface (no faceting) and far less
+     per-frame work. */
+  const isMobile = innerWidth <= 760;
+  const DETAIL = isMobile ? 22 : 36;
+  const RAD = 1.55;
+  let geo = new THREE.IcosahedronGeometry(RAD, DETAIL);
+  geo = mergeVertices(geo);
+  const pos = geo.attributes.position;
+  const N = pos.count;
+  const base = new Float32Array(N*3);       // rest positions (teardrop)
+  const dir  = new Float32Array(N*3);       // unit normals of rest shape
+  for (let i=0;i<N;i++){
+    let x=pos.getX(i), y=pos.getY(i), z=pos.getZ(i);
+    const r = Math.hypot(x,y,z);
+    let nx=x/r, ny=y/r, nz=z/r;
+    // gentle teardrop: soft point toward +Y, fuller heavier bottom (gravity)
+    const t = (ny+1)/2;                                   // 0 bottom → 1 top
+    const taper = 1 - 0.30*Math.pow(Math.max(t-0.45,0)/0.55, 2.4);
+    const tip   = ny>0 ? 0.34*Math.pow(t,3.0) : 0;
+    const heavy = ny<0 ? 0.10*Math.pow(1-t*2,1.6) : 0;    // sag weight at base
+    const rad   = RAD*taper;
+    x = nx*rad; y = ny*rad + tip*RAD - heavy*RAD; z = nz*rad;
+    base[i*3]=x; base[i*3+1]=y; base[i*3+2]=z;
+    const bl = Math.hypot(x,y,z)||1;
+    dir[i*3]=x/bl; dir[i*3+1]=y/bl; dir[i*3+2]=z/bl;
+    pos.setXYZ(i,x,y,z);
+  }
+  geo.computeVertexNormals();
+
+  /* ── Material: vivid blue glass / liquid ── */
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color(0x1452d6),
+    metalness: 0.0,
+    roughness: 0.13,
+    clearcoat: 1.0,
+    clearcoatRoughness: 0.045,
+    transmission: 0.42,
+    thickness: 1.7,
+    ior: 1.42,
+    attenuationColor: new THREE.Color(0x1f63ff),
+    attenuationDistance: 1.3,
+    iridescence: 0.55,
+    iridescenceIOR: 1.5,
+    iridescenceThicknessRange: [130, 520],
+    sheen: 0.55,
+    sheenRoughness: 0.4,
+    sheenColor: new THREE.Color(0x7ab8ff),
+    specularIntensity: 1.0,
+    specularColor: new THREE.Color(0xffffff),
+    envMapIntensity: 1.45,
+  });
+  const drop = new THREE.Mesh(geo, mat);
+  scene.add(drop);
+
+  /* faint inner bloom that flashes on tap */
+  const glowMat = new THREE.MeshBasicMaterial({ color:0x4f93ff, transparent:true, opacity:0, blending:THREE.AdditiveBlending, depthWrite:false });
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(RAD*1.04, 32, 32), glowMat);
+  scene.add(glow);
+
+  /* ── Smooth layered trig noise (organic, cheap) ── */
+  function fbm(x,y,z,t){
+    let n  = Math.sin(x*1.3 + t*0.9)*Math.cos(y*1.5 - t*0.7);
+    n += 0.5*Math.sin(y*2.2 - t*1.1)*Math.cos(z*1.9 + t*0.5);
+    n += 0.28*Math.sin(z*3.1 + t*1.4)*Math.cos(x*2.6 - t*0.8);
+    return n*0.62; // ~ -1..1
+  }
+
+  /* ── Physics / interaction state ── */
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2(999,999);
+  const ptr = { x:0, y:0, has:false };
+  let squish=0, squishVel=0;          // vertical jelly spring
+  let burst=0;                         // ripple amount after a tap
+  let swayVel=0, sway=0;               // pendulum (gravity restoring)
+  let dragRX=0, dragRY=0, targRX=0, targRY=0;
+  let dragging=false, lastX=0, lastY=0, moved=0;
+  let bobV=0, bobY=0;                  // weighted bob (gravity)
+
+  function setNDC(cx,cy){
+    const r = canvas.getBoundingClientRect();
+    ndc.x = ((cx-r.left)/r.width)*2 - 1;
+    ndc.y = -((cy-r.top)/r.height)*2 + 1;
+    ptr.x = ndc.x; ptr.y = ndc.y; ptr.has = true;
+  }
+  function hitDrop(){ raycaster.setFromCamera(ndc, camera); return raycaster.intersectObject(drop,false).length>0; }
+  function press(){
+    squish = -0.42; squishVel = -1.1; burst = 1.0;
+    bobV -= 0.9; swayVel += (Math.random()-0.5)*0.6;
+    glowMat.opacity = 0.34;
+  }
+  canvas.addEventListener('pointerdown', e=>{
+    setNDC(e.clientX,e.clientY); lastX=e.clientX; lastY=e.clientY; moved=0;
+    if (hitDrop()){ dragging=true; try{canvas.setPointerCapture(e.pointerId);}catch(_){} }
+  });
+  addEventListener('pointermove', e=>{
+    setNDC(e.clientX,e.clientY);
+    if (dragging){
+      const dx=e.clientX-lastX, dy=e.clientY-lastY;
+      targRY += dx*0.007; targRX += dy*0.007; moved += Math.abs(dx)+Math.abs(dy);
+      swayVel += dx*0.0008;
+      lastX=e.clientX; lastY=e.clientY;
+    }
+  });
+  addEventListener('pointerup', e=>{
+    if (dragging){ dragging=false; if (moved<6) press(); }
+    else { setNDC(e.clientX,e.clientY); if (hitDrop()) press(); }
+  });
+  canvas.addEventListener('touchstart', e=>{ e.preventDefault(); }, {passive:false});
+
+  /* ── Resize + responsive placement ── */
+  function layout(){
+    const w=canvas.clientWidth, h=canvas.clientHeight;
+    if (!w||!h) return;
+    if (canvas.width!==Math.round(w*renderer.getPixelRatio()) || canvas.height!==Math.round(h*renderer.getPixelRatio())){
+      renderer.setSize(w,h,false);
+      camera.aspect = w/h; camera.updateProjectionMatrix();
+    }
+    const wide = w>760;
+    drop.position.x = wide ? 1.7 : 0;
+    glow.position.x = drop.position.x;
+    const s = wide ? 1.18 : 0.92;     // bigger overall
+    drop.userData.fit = s;
+    camera.position.z = wide ? 7.0 : 8.0;
+  }
+  addEventListener('resize', layout);
+
+  /* ── Render loop ── */
+  const clock = new THREE.Clock();
+  let elapsed = 0;
+  function animate(){
+    requestAnimationFrame(animate);
+    layout();
+    const dt = Math.min(clock.getDelta(), 0.05);
+    elapsed += dt; const t = elapsed;
+
+    // vertical jelly spring (gravity-weighted overshoot)
+    squishVel += (0 - squish)*26*dt; squishVel *= 0.85; squish += squishVel*dt*6;
+    // weighted bob — gravity pulls down, buoyancy up; asymmetric settle
+    bobV += (0 - bobY)*9*dt - 0.18*dt; bobV *= 0.94; bobY += bobV*dt*3;
+    const idleBob = reduce ? 0 : Math.sin(t*0.7)*0.10;
+    // pendulum sway (gravity restoring force)
+    swayVel += (0 - sway)*14*dt; swayVel *= 0.92; sway += swayVel*dt*5;
+    const idleSway = reduce ? 0 : Math.sin(t*0.45)*0.025;
+    burst *= 0.93; glowMat.opacity *= 0.9;
+
+    drop.position.y = bobY + idleBob;
+    glow.position.y = drop.position.y;
+
+    // cursor-follow tilt + drag, settling back under "gravity"
+    const fX = (reduce||!ptr.has) ? 0 : ptr.y*0.16;
+    const fY = (reduce||!ptr.has) ? 0 : ptr.x*0.24;
+    targRX += (0 - targRX)*0.02; targRY += (0 - targRY)*0.02;   // slow return to rest
+    dragRX += ((targRX+fX) - dragRX)*0.07;
+    dragRY += ((targRY+fY) - dragRY)*0.07;
+    drop.rotation.set(dragRX, dragRY + (reduce?0:t*0.10), sway+idleSway);
+    glow.rotation.copy(drop.rotation);
+
+    // squash & stretch — volume-preserving jelly
+    const fit = drop.userData.fit||1;
+    const sy = (1 + squish) * fit;
+    const sxz = (1 - squish*0.5) * fit;
+    drop.scale.set(sxz, sy, sxz);
+    glow.scale.set(sxz*1.03, sy*1.03, sxz*1.03);
+
+    // gooey surface-tension wobble + gravity drip at the base
+    const amp  = (reduce ? 0.012 : 0.05) + burst*0.16;
+    const drip = reduce ? 0 : (0.05 + 0.035*Math.sin(t*0.55));   // pulsing sag
+    for (let i=0;i<N;i++){
+      const bx=base[i*3], by=base[i*3+1], bz=base[i*3+2];
+      const n = fbm(bx*0.9, by*0.9, bz*0.9, t*0.8);
+      const k = 1 + n*amp;
+      let px=bx*k, py=by*k, pz=bz*k;
+      // gravity drip: lower hemisphere eased downward (surface tension)
+      const low = Math.max(0, -by/RAD);
+      py -= low*low*drip*RAD*0.5;
+      pos.setXYZ(i, px, py, pz);
+    }
+    pos.needsUpdate = true;
+    geo.computeVertexNormals();   // essential for true 3D shading
+
+    renderer.render(scene, camera);
+  }
+  layout();
+  animate();
+
+} catch (err){
+  // graceful CSS fallback
+  console.warn('Droplet WebGL fallback:', err);
+  canvas.outerHTML =
+    '<div style="position:absolute;inset:0;z-index:1;display:grid;place-items:center;pointer-events:none">'
+    + '<div style="width:240px;height:268px;border-radius:50% 50% 50% 50%/58% 58% 44% 44%;'
+    + 'background:radial-gradient(circle at 36% 28%,#bcd8ff 0%,#1a66e5 42%,#0b3fa6 100%);'
+    + 'box-shadow:0 50px 130px -34px rgba(11,63,166,.55),inset -26px -34px 70px rgba(4,20,90,.6),inset 18px 22px 50px rgba(255,255,255,.4);'
+    + 'animation:fbDrop 4.2s ease-in-out infinite"></div></div>'
+    + '<style>@keyframes fbDrop{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-18px) scale(.98,1.03)}}</style>';
+}
+}
+</script>
+
+<!-- ===================== UI · ROUTER · LOADER ===================== -->
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>24),{passive:true});
+
+/* ----- mobile menu ----- */
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);});
+document.querySelectorAll('.nav-item > a').forEach(a=>{
+  a.addEventListener('mousedown',()=>{},{passive:true});
+});
+
+/* ----- scroll reveal ----- */
+const io=new IntersectionObserver((en)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+function observeReveals(scope){scope.querySelectorAll('.reveal:not(.in)').forEach((el,i)=>{el.style.transitionDelay=(i%5)*70+'ms';io.observe(el);});}
+
+/* ----- router ----- */
+const PAGES=['home','product','about','contact'];
+let current='home';
+function setNav(name){document.querySelectorAll('[data-page-nav]').forEach(el=>el.classList.toggle('active',el.getAttribute('data-page-nav')===name));}
+function reveal(scope){scope.querySelectorAll('.reveal').forEach(el=>el.classList.remove('in'));observeReveals(scope);}
+function go(name,anchor,push=true){
+  if(!PAGES.includes(name))name='home';
+  const nxt=document.getElementById('page-'+name);
+  if(name===current){ if(anchor)scrollToAnchor(anchor); else window.scrollTo({top:0,behavior:'smooth'}); return; }
+  const cur=document.getElementById('page-'+current);
+  cur.classList.add('out');
+  window.__homeActive=(name==='home');
+  setTimeout(()=>{
+    cur.classList.remove('active','out');
+    nxt.classList.add('active');
+    window.scrollTo(0,0);
+    setNav(name);reveal(nxt);
+    if(name==='home'){const h=document.getElementById('hero');if(h)h.classList.add('lit');}
+    if(anchor)setTimeout(()=>scrollToAnchor(anchor),120);
+    current=name;
+  },260);
+  if(push){const h=name==='home'?'#':'#'+name;try{history.replaceState(null,'',h);}catch(_){location.hash=h;}}
+  menu.classList.remove('open');burger.setAttribute('aria-expanded',false);
+}
+function scrollToAnchor(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* nav clicks (delegated) */
+document.addEventListener('click',e=>{
+  const link=e.target.closest('[data-nav]');
+  if(!link)return;
+  // mobile: first tap on a top menu item expands its panel instead of navigating
+  if(innerWidth<=760 && link.matches('.nav-item > a')){
+    const it=link.parentElement;
+    if(it.querySelector('.panel') && !it.classList.contains('exp')){
+      e.preventDefault();
+      document.querySelectorAll('.nav-item.exp').forEach(x=>x!==it&&x.classList.remove('exp'));
+      it.classList.add('exp');return;
+    }
+  }
+  e.preventDefault();
+  go(link.getAttribute('data-nav'), link.getAttribute('data-anchor'));
+});
+
+/* demo form */
+document.getElementById('quoteForm').addEventListener('submit',e=>{e.preventDefault();
+  const note=document.getElementById('formNote');const c=(document.getElementById('company').value.trim()||'고객');
+  note.style.color='var(--blue-bright)';note.textContent=`${c}님, 대량 견적 요청이 접수되었습니다 — 데모 양식이라 실제 발송은 되지 않아요. 연동을 원하시면 알려주세요!`;});
+
+/* ----- loader: kinetic counter + rotating word, then swipe reveal ----- */
+const loader=document.getElementById('loader'),app=document.getElementById('app');
+const lnum=document.getElementById('lnum'),lbar=document.getElementById('lbar'),lrot=document.getElementById('lrot');
+// rotating word
+let rotI=0;const rotTimer=setInterval(()=>{rotI=(rotI+1)%3;lrot.style.transform=`translateY(${-rotI*20}px)`;},760);
+// counter
+const DUR=2600,t0=performance.now();
+function tick(now){
+  const p=Math.min(1,(now-t0)/DUR);
+  const eased=1-Math.pow(1-p,2.2);
+  const val=Math.round(eased*100);
+  lnum.textContent=val;lbar.style.width=val+'%';
+  if(p<1)requestAnimationFrame(tick);else finish();
+}
+let finished=false;
+function finish(){
+  if(finished)return;finished=true;clearInterval(rotTimer);
+  loader.classList.add('done');
+  app.classList.add('in');
+  document.body.classList.remove('lock');
+  // light up hero entrance
+  const h=document.getElementById('hero');if(h)h.classList.add('lit');
+  // initial route from hash
+  const hash=(location.hash||'#').replace('#','');
+  if(hash && PAGES.includes(hash) && hash!=='home'){ setTimeout(()=>go(hash,null,false),300); }
+  else { reveal(document.getElementById('page-home')); }
+  setTimeout(()=>loader.remove(),1300);
+}
+requestAnimationFrame(tick);
+setTimeout(()=>{if(!finished)finish();},5000); // safety
+</script>
+
+<!-- ===================== HOME HUB · interactions ===================== -->
+<script>
+(function(){
+  function toast(msg){
+    let t=document.getElementById('kgToast');
+    if(!t){ t=document.createElement('div'); t.id='kgToast'; t.className='toast'; document.body.appendChild(t); }
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2800);
+  }
+  const input=document.getElementById('symptomInput');
+  const goBtn=document.getElementById('symptomGo');
+  function runSearch(){
+    const q=(input&&input.value.trim())||'';
+    if(!q){ if(input) input.focus(); toast('증상이나 프린터 모델명을 입력해 주세요.'); return; }
+    toast('“'+q+'” — 자가진단·해결 가이드가 연결되면 결과를 보여드릴게요.');
+  }
+  if(goBtn) goBtn.addEventListener('click',runSearch);
+  if(input) input.addEventListener('keydown',e=>{ if(e.key==='Enter') runSearch(); });
+  document.querySelectorAll('.cmd .chip').forEach(c=>{
+    c.addEventListener('click',()=>{ if(input){ input.value=c.textContent.trim(); input.focus(); } });
+  });
+  const solMsg={
+    diagnose:'자가진단을 준비하고 있어요. 곧 몇 가지 질문으로 원인을 찾아드릴게요.',
+    compat:'호환성 조회를 준비하고 있어요. 곧 모델별 호환 제품을 확인할 수 있어요.',
+    trouble:'출력 문제 해결 가이드를 준비하고 있어요.',
+    error:'에러코드 사전을 준비하고 있어요.',
+    care:'프린터 관리 가이드를 준비하고 있어요.'
+  };
+  document.querySelectorAll('.sol-card[data-sol]').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const k=card.getAttribute('data-sol');
+      if(k==='quote'){ if(window.go) window.go('contact'); return; }
+      toast(solMsg[k]||'곧 추가됩니다.');
+    });
+  });
+  document.querySelectorAll('.qmenu button[data-q]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const k=b.getAttribute('data-q');
+      if(k==='top'){ window.scrollTo({top:0,behavior:'smooth'}); }
+      else if(k==='quote'){ if(window.go) window.go('contact'); }
+      else if(k==='contact'){ if(window.go) window.go('contact','contact-info'); }
+      else if(k==='diagnose'){
+        const h=document.getElementById('help'); if(h) h.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>{ if(input) input.focus(); },520);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
